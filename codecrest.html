@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة حاسبات فنـي | بوابتك نحو مستقبل رقمي واعد</title>
+    <!-- استيراد الخطوط والأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --card-bg: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: var(--dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* شريط التنبيهات العلوي */
+        .top-announcement {
+            background: linear-gradient(90deg, #3a0ca3, #4361ee);
+            color: white;
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1001;
+        }
+
+        /* شريط التنقل العلوي */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 35px;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .btn-login {
+            background: var(--primary);
+            color: white !important;
+            padding: 8px 22px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* الواجهة الرئيسية */
+        .hero {
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            padding: 190px 20px 110px;
+            text-align: center;
+            position: relative;
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            max-width: 750px;
+            margin: 0 auto 35px;
+            opacity: 0.95;
+        }
+
+        .search-box {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 8px;
+            border-radius: 50px;
+            display: flex;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 12px 20px;
+            outline: none;
+            font-size: 1rem;
+            border-radius: 50px;
+        }
+
+        .search-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-box button:hover {
+            background: var(--secondary);
+        }
+
+        /* إحصائيات سريعة */
+        .stats-section {
+            max-width: 1000px;
+            margin: -40px auto 40px;
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .stat-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .stat-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* حاوية الأقسام العامة */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* شبكة الصفوف الدراسية */
+        .years-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .year-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .year-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(67, 97, 238, 0.1);
+            border-color: rgba(67, 97, 238, 0.2);
+        }
+
+        .year-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .year-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 1.5rem;
+        }
+
+        .year-card h3 {
+            font-size: 1.35rem;
+            color: var(--dark);
+        }
+
+        .year-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .year-links a {
+            text-decoration: none;
+            color: var(--gray);
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .year-links a:hover {
+            background: var(--primary);
+            color: white;
+            padding-right: 20px;
+        }
+
+        .notes-section, .videos-section, .courses-section {
+            margin-bottom: 70px;
+        }
+
+        .custom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .item-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(67, 97, 238, 0.1);
+        }
+
+        .item-card-header {
+            background: linear-gradient(135deg, rgba(67,97,238,0.1), rgba(58,12,163,0.05));
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-card-header i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .item-card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .item-card-body h4 {
+            font-size: 1.15rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .item-card-body p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .card-btn:hover {
+            background: var(--secondary);
+        }
+
+        /* تصميم مطور لقسم الفيديوهات التعليمية */
+        .video-thumbnail {
+            position: relative;
+            background: #111;
+            height: 160px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .video-thumbnail .play-icon-overlay {
+            position: absolute;
+            background: rgba(220, 38, 38, 0.9);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+
+        .item-card:hover .play-icon-overlay {
+            transform: scale(1.1);
+        }
+
+        /* تصميم مطور لقسم الكورسات التأهيلية */
+        .course-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 12px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        /* قسم آراء الطلاب */
+        .testimonials-section {
+            margin-bottom: 60px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+
+        .testimonial-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .student-avatar {
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .student-info h5 {
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .student-info span {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* قسم من نحن */
+        .about-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .about-content p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .about-feat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .about-feat-item i {
+            color: var(--primary);
+        }
+
+        .about-img {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+            border-radius: 15px;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: var(--primary);
+        }
+
+        /* قسم تواصل معنا */
+        .contact-section {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-box i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .info-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .info-box p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-submit:hover {
+            background: var(--secondary);
+        }
+
+        /* زر الصعود للأعلى */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: var(--primary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .scroll-top:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* الفوتر */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .about-section, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شريط إعلانات علوي -->
+    <div class="top-announcement">
+        <i class="fa-solid fa-bullhorn"></i> تفعيل ملازم المراجعة النهائية لطلاب الدبلوم الفني قسم حاسبات 2026 - <a href="#notes" style="color: #fff; text-decoration: underline;">حمّلها الآن</a>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-laptop-code"></i> حاسبات فنـي
+            </a>
+            <div class="menu-toggle" id="mobileMenuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="#years">الصفوف</a></li>
+                <li><a href="#notes">الملازم</a></li>
+                <li><a href="#videos">الفيديوهات</a></li>
+                <li><a href="#courses">الكورسات</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+                <li><a href="#" class="btn-login">تسجيل الدخول</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero animate-fade">
+        <h1>منصة حاسبات ومعلومات - ثانـوي فنـي</h1>
+        <p>بوابتك الرقمية المتكاملة لاحتراف البرمجة، صيانة شبكات الحاسب، وتكنولوجيا المعلومات. نقدم لك شروحات مبسطة، ملازم مجانية، ومراجعات نهائية لكل السنوات الدراسية.</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="ابحث عن مادة، درس، أو ملزمة (مثال: برمجة، صيانة...)">
+            <button onclick="alert('جارٍ البحث عن المحتوى المطلوب...')"><i class="fa-solid fa-search"></i> بحث</button>
+        </div>
+    </section>
+
+    <!-- إحصائيات سريعة للمنصة -->
+    <div class="stats-section">
+        <div class="stat-card">
+            <h3>+15,000</h3>
+            <p>طالب مستفيد</p>
+        </div>
+        <div class="stat-card">
+            <h3>+120</h3>
+            <p>ملزمة ومذكرة</p>
+        </div>
+        <div class="stat-card">
+            <h3>+500</h3>
+            <p>فيديو تعليمي</p>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container" id="years">
+        
+        <div class="section-title">
+            <h2>اختر صفك الدراسي</h2>
+            <p style="color: var(--gray); margin-top: 5px;">محتوى تعليمي مخصص ومحدث باستمرار وفق المناهج الرسمية لوزارة التربية والتعليم</p>
+        </div>
+
+        <div class="years-grid">
+            <!-- الصف الأول -->
+            <div class="year-card">
+                <div class="year-header">
+                    <div class="year-icon"><i class="fa-solid fa-1"></i></div>
+                    <div>
+                        <h3>الصف الأول الثانوي الفني</h3>
+                        <p style="color: var(--gray); font-size: 0.85rem;">أساسيات الحاسب والمنطق البرمجي</p>
+                    </div>
+                </div>
+                <ul class="year-links">
+                    <a href="#notes"><span>شروحات المنهج كاملة</span> <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="#notes"><span>الملازم والمذكرات (PDF)</span> <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="#videos"><span>امتحانات وتدريبات عملية</span> <i class="fa-solid fa-arrow-left"></i></a>
+                </ul>
+            </div>
+
+            <!-- الصف الثاني -->
+            <div class="year-card">
+                <div class="year-header">
+                    <div class="year-icon"><i class="fa-solid fa-2"></i></div>
+                    <div>
+                        <h3>الصف الثاني الثانوي الفني</h3>
+                        <p style="color: var(--gray); font-size: 0.85rem;">قواعد البيانات والبرمجة الكائنية</p>
+                    </div>
+                </div>
+                <ul class="year-links">
+                    <a href="#notes"><span>شروحات المنهج كاملة</span> <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="#notes"><span>الملازم والمذكرات (PDF)</span> <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="#videos"><span>امتحانات وتدريبات عملية</span> <i class="fa-solid fa-arrow-left"></i></a>
+                </ul>
+            </div>
+
+            <!-- الصف الثالث -->
+            <div class="year-card">
+                <div class="year-header">
+                    <div class="year-icon"><i class="fa-solid fa-3"></i></div>
+                    <div>
+                        <h3>الصف الثالث (الدبلوم الفني)</h3>
+                        <p style="color: var(--gray); font-size: 0.85rem;">المشاريع ومراجعات ليلة الامتحان</p>
+                    </div>
+                </div>
+                <ul class="year-links">
+                    <a href="#notes"><span>مراجعات ليلة الامتحان الشاملة</span> <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="#notes"><span>مشاريع التخرج والتدريب الصيفي</span> <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="#videos"><span>امتحانات السنوات السابقة (أرشيف)</span> <i class="fa-solid fa-arrow-left"></i></a>
+                </ul>
+            </div>
+        </div>
+
+        <!-- قسم الملازم الدراسية -->
+        <div class="notes-section" id="notes">
+            <div class="section-title">
+                <h2>الملازم والمذكرات الدراسية</h2>
+                <p style="color: var(--gray); margin-top: 5px;">مذكرات منسقة وشاملة جاهزة للتحميل الفوري بصيغة PDF</p>
+            </div>
+            <div class="custom-grid">
+                <div class="item-card">
+                    <div class="item-card-header">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <div>
+                            <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">الصف الأول</span>
+                            <h4>ملزمة أساسيات البرمجة</h4>
+                        </div>
+                    </div>
+                    <div class="item-card-body">
+                        <p>شرح مبسط لمبادئ البرمجة والمنطق الرياضي والخوارزميات مع أمثلة محلولة.</p>
+                        <a href="#" class="card-btn" onclick="alert('جاري تحميل الملزمة...'); return false;"><i class="fa-solid fa-download"></i> تحميل PDF</a>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-header">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <div>
+                            <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">الصف الثاني</span>
+                            <h4>ملزمة قواعد البيانات (Access)</h4>
+                        </div>
+                    </div>
+                    <div class="item-card-body">
+                        <p>دليل شامل لتصميم الجداول والعلاقات واستعلامات SQL بطريقة مبسطة.</p>
+                        <a href="#" class="card-btn" onclick="alert('جاري تحميل الملزمة...'); return false;"><i class="fa-solid fa-download"></i> تحميل PDF</a>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-header">
+                        <i class="fa-solid fa-file-pdf"></i>
+                        <div>
+                            <span style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">الصف الثالث</span>
+                            <h4>مراجعة ليلة الامتحان الشاملة</h4>
+                        </div>
+                    </div>
+                    <div class="item-card-body">
+                        <p>أهم الأسئلة المتوقعة وتدريبات الامتحانات السابقة لضمان الدرجة النهائية.</p>
+                        <a href="#" class="card-btn" onclick="alert('جاري تحميل الملزمة...'); return false;"><i class="fa-solid fa-download"></i> تحميل PDF</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الفيديوهات التعليمية (محدث ومضبوط) -->
+        <div class="videos-section" id="videos">
+            <div class="section-title">
+                <h2>الفيديوهات التعليمية الشروحات</h2>
+                <p style="color: var(--gray); margin-top: 5px;">شرح مرئي دقيق ومباشر لكل تفاصيل المنهج النظري والعملي</p>
+            </div>
+            <div class="custom-grid">
+                <div class="item-card">
+                    <div class="video-thumbnail">
+                        <i class="fa-solid fa-code" style="opacity: 0.3;"></i>
+                        <div class="play-icon-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="item-card-body">
+                        <span style="color: #dc2626; font-weight: 700; font-size: 0.8rem;"><i class="fa-solid fa-clock"></i> مدة الفيديو: 25 دقيقة</span>
+                        <h4>تطبيق عملي لبرمجة الحاسب الآلي</h4>
+                        <p>درس عملي خطوة بخطوة لكتابة وتنفيذ الأكواد داخل معامل المدرسة.</p>
+                        <a href="#" class="card-btn" style="background: #dc2626;" onclick="alert('جاري تشغيل الفيديو...'); return false;"><i class="fa-solid fa-play"></i> مشاهدة الدرس</a>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="video-thumbnail">
+                        <i class="fa-solid fa-microchip" style="opacity: 0.3;"></i>
+                        <div class="play-icon-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="item-card-body">
+                        <span style="color: #dc2626; font-weight: 700; font-size: 0.8rem;"><i class="fa-solid fa-clock"></i> مدة الفيديو: 35 دقيقة</span>
+                        <h4>صيانة الهاردوير وحل الأعطال</h4>
+                        <p>شرح تفصيلي لمكونات اللوحة الأم (Motherboard) وطريقة استبدال القطع التالفة.</p>
+                        <a href="#" class="card-btn" style="background: #dc2626;" onclick="alert('جاري تشغيل الفيديو...'); return false;"><i class="fa-solid fa-play"></i> مشاهدة الدرس</a>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="video-thumbnail">
+                        <i class="fa-solid fa-network-wired" style="opacity: 0.3;"></i>
+                        <div class="play-icon-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="item-card-body">
+                        <span style="color: #dc2626; font-weight: 700; font-size: 0.8rem;"><i class="fa-solid fa-clock"></i> مدة الفيديو: 20 دقيقة</span>
+                        <h4>تأسيس شبكات الحاسب المحلية (LAN)</h4>
+                        <p>كيفية عمل كابلات الـ Network وتوصيل الأجهزة ببعضها البعض بنجاح.</p>
+                        <a href="#" class="card-btn" style="background: #dc2626;" onclick="alert('جاري تشغيل الفيديو...'); return false;"><i class="fa-solid fa-play"></i> مشاهدة الدرس</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم الكورسات التقنية (محدث ومضبوط) -->
+        <div class="courses-section" id="courses">
+            <div class="section-title">
+                <h2>الكورسات التأهيلية لسوق العمل</h2>
+                <p style="color: var(--gray); margin-top: 5px;">دورات تدريبية متطورة تمنحك مهارات حقيقية تنافس بها بعد التخرج</p>
+            </div>
+            <div class="custom-grid">
+                <div class="item-card">
+                    <div class="item-card-header" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.05));">
+                        <i class="fa-solid fa-laptop-code" style="color: #10b981;"></i>
+                        <div>
+                            <span class="course-badge">مستوى متقدم</span>
+                            <h4>دبلومة تطوير الويب (Web Dev)</h4>
+                        </div>
+                    </div>
+                    <div class="item-card-body">
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-book"></i> 12 درس</span>
+                            <span><i class="fa-solid fa-user-graduate"></i> شهادة إتمام</span>
+                        </div>
+                        <p>تعلم تصميم وبرمجة المواقع الإلكترونية من الصفر حتى الاحتراف.</p>
+                        <a href="#" class="card-btn" style="background: #10b981;" onclick="alert('تم التسجيل في الكورس بنجاح!'); return false;"><i class="fa-solid fa-user-plus"></i> انضم للكورس</a>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-header" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.05));">
+                        <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i>
+                        <div>
+                            <span class="course-badge">مستوى متوسط</span>
+                            <h4>أساسيات أمن المعلومات والشبكات</h4>
+                        </div>
+                    </div>
+                    <div class="item-card-body">
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-book"></i> 8 دروس</span>
+                            <span><i class="fa-solid fa-user-graduate"></i> شهادة إتمام</span>
+                        </div>
+                        <p>حماية الأجهزة والأنظمة من الاختراق وتأمين قواعد البيانات.</p>
+                        <a href="#" class="card-btn" style="background: #10b981;" onclick="alert('تم التسجيل في الكورس بنجاح!'); return false;"><i class="fa-solid fa-user-plus"></i> انضم للكورس</a>
+                    </div>
+                </div>
+                <div class="item-card">
+                    <div class="item-card-header" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.05));">
+                        <i class="fa-solid fa-robot" style="color: #10b981;"></i>
+                        <div>
+                            <span class="course-badge">مستوى مبتدئ</span>
+                            <h4>مقدمة في الذكاء الاصطناعي</h4>
+                        </div>
+                    </div>
+                    <div class="item-card-body">
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-book"></i> 10 دروس</span>
+                            <span><i class="fa-solid fa-user-graduate"></i> شهادة إتمام</span>
+                        </div>
+                        <p>تعرف على أحدث تقنيات الذكاء الاصطناعي ولغة بايثون للتحليل البرمجي.</p>
+                        <a href="#" class="card-btn" style="background: #10b981;" onclick="alert('تم التسجيل في الكورس بنجاح!'); return false;"><i class="fa-solid fa-user-plus"></i> انضم للكورس</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم آراء طلابنا -->
+        <div class="testimonials-section">
+            <div class="section-title">
+                <h2>ماذا يقول طلابنا؟</h2>
+                <p style="color: var(--gray); margin-top: 5px;">قصص نجاح وتفوق طلاب قسم الحاسبات معنا</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"الموقع ممتاز جداً وساعدني أفهم مواد البرمجة بسهولة من غير تعقيد، وبفضل الله جبت مجموع عالي في الدبلوم."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">م</div>
+                        <div>
+                            <h5>محمود إبراهيم</h5>
+                            <span>خريج دبلوم حاسبات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"الملازم وشروحات الفيديو واضحة جداً، ومراجعات ليلة الامتحان كانت مطابقة تماماً لشكل الامتحان."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">أ</div>
+                        <div>
+                            <h5>أحمد علي</h5>
+                            <span>طالب بالصف الثالث</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"أفضل منصة تعليمية للمتوسط الفني، الشرح عملي ونظري وبطريقة ممتازة تناسب سوق العمل."</p>
+                    <div class="student-info">
+                        <div class="student-avatar">ك</div>
+                        <div>
+                            <h5>كريمة حسن</h5>
+                            <span>طالبة بالصف الثاني</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم من نحن -->
+        <div class="about-section" id="about">
+            <div class="about-content">
+                <h2>من نحن</h2>
+                <p>منصة "حاسبات فنـي" هي المبادرة التعليمية الأولى المتخصصة لطلاب الثانوي الفني (تخصص حاسبات ومعلومات). نعمل بكل جهد لجعل التكنولوجيا البرمجية ومناهج الحاسب أكثر سهولة ومتعة، مع ربط الطالب بالتطبيقات العملية الميدانية.</p>
+                <div class="about-features">
+                    <div class="about-feat-item"><i class="fa-solid fa-check-circle"></i> شرح مبسط ومصور</div>
+                    <div class="about-feat-item"><i class="fa-solid fa-check-circle"></i> ملازم محدثة دورياً</div>
+                    <div class="about-feat-item"><i class="fa-solid fa-check-circle"></i> نخبة من الأساتذة</div>
+                    <div class="about-feat-item"><i class="fa-solid fa-check-circle"></i> دعم فني مستمر</div>
+                </div>
+            </div>
+            <div class="about-img">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+        </div>
+
+        <!-- قسم تواصل معنا -->
+        <div class="contact-section" id="contact">
+            <div class="section-title">
+                <h2>تواصل معنا</h2>
+                <p style="color: var(--gray); margin-top: 5px;">نسعد دائماً بالإجابة على استفساراتكم ومقترحاتكم لتطوير المنصة</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-box">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h4>العنوان</h4>
+                            <p>جمهورية مصر العربية، القاهرة</p>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <i class="fa-solid fa-envelope"></i>
+                        <div>
+                            <h4>البريد الإلكتروني</h4>
+                            <p>support@hasabat-fny.com</p>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <i class="fa-solid fa-phone"></i>
+                        <div>
+                            <h4>رقم الدعم الفني</h4>
+                            <p>+20 123 456 7890</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('تم إرسال رسالتك بنجاح! سنتواصل معك قريبًا.');">
+                    <div class="form-group">
+                        <input type="text" placeholder="اسمك الكامل" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="البريد الإلكتروني" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="اكتب رسالتك أو استفسارك هنا..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">إرسال الرسالة</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- زر الصعود للأعلى -->
+    <a href="#" class="scroll-top" title="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></a>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container" style="margin: 0 auto; padding: 0;">
+            <h3>منصة حاسبات فنـي</h3>
+            <p>جميع الحقوق محفوظة للمنصة التعليمية لطلاب الثانوي الفني قسم حاسبات ومعلومات &copy; 2026</p>
+            <p>This creating a website engineer| AMIR Mohamed Mostafa</p>
+        </div>
+    </footer>
+
+    <!-- سكريبت لتفعيل القائمة المتجاوبة على الجوال -->
+    <script>
+        const toggleBtn = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        toggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>
